@@ -13,6 +13,11 @@ struct BluetoothDetailView: View {
                 .font(.headline)
             
             Text("Identifier: \(peripheral.identifier.uuidString)")
+
+            Button("Print Test") {
+                bluetoothManager.printTest(to: peripheral)
+            }
+            .padding(.top, 20)
             
         }
         .padding()
