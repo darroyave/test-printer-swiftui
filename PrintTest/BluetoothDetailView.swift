@@ -3,6 +3,7 @@ import CoreBluetooth
 
 struct BluetoothDetailView: View {
     let peripheral: CBPeripheral
+    @ObservedObject var bluetoothManager: BluetoothManager
     
     var body: some View {
         
