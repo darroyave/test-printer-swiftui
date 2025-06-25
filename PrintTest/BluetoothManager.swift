@@ -65,4 +65,29 @@ class BluetoothManager: NSObject, ObservableObject, CBCentralManagerDelegate, CB
         selectedDevice = nil
     }
 
+    func printTest(to peripheral: CBPeripheral) {
+        // Ejemplo: texto de prueba en ASCII (puedes modificar por el comando correcto de tu impresora)
+        let printData = "Test print from SwiftUI\n".data(using: .utf8)!
+        // Descubre servicios primero si no lo has hecho
+        peripheral.delegate = self
+        // Aquí asume que el periférico ya está conectado y conoces la característica de escritura
+        // Debes reemplazar 'yourCharacteristic' por la característica real de escritura de tu impresora
+        if let characteristic = findWriteCharacteristic(for: peripheral) {
+            peripheral.writeValue(printData, for: characteristic, type: .withResponse)
+        }
+    }
+
+    private func findWriteCharacteristic(for peripheral: CBPeripheral) -> CBCharacteristic? {
+        // Busca la característica correcta entre los servicios y características del periférico
+        // Ejemplo genérico (ajusta según tu impresora)
+        for service in peripheral.services ?? [] {
+            for characteristic in service.characteristics ?? [] {
+                if characteristic.properties.contains(.write) {
+                    return characteristic
+                }
+            }
+        }
+        return nil
+    }
+    
 }
