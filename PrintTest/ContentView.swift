@@ -11,7 +11,7 @@ struct ContentView: View {
                 if bluetoothManager.bluetoothState == .poweredOn {
                     List(bluetoothManager.discoveredDevices, id: \.identifier) { device in
                         NavigationLink(
-                            destination: BluetoothDetailView(peripheral: device)
+                            destination: BluetoothDetailView(peripheral: device, bluetoothManager: bluetoothManager)
                                 .onAppear {
                                     selectedDevice = device
                                     bluetoothManager.connect(to: device)
